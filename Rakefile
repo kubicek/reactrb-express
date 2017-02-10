@@ -1,13 +1,13 @@
 require 'rubygems'
 require 'opal'
 require 'opal-browser'
-require 'reactrb'
+require 'hyper-react'
 require 'opal-jquery'
 
-desc 'Build inline code editor support reactive-playground.js'
+desc 'Build hyperloop-express.js'
 task :build do
-  Opal.append_path 'reactrb-express'
-  File.binwrite 'reactrb-express.js', Opal::Builder.build('application').to_s
+  Opal.append_path 'hyperloop-express'
+  File.binwrite 'hyperloop-express.js', Opal::Builder.build('application').to_s
 end
 
 task default: [:build]

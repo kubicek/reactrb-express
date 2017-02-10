@@ -1,35 +1,36 @@
 require 'opal'
 require 'opal/compiler'
-require 'browser'
-require 'browser/socket'
 require 'browser/interval'
+require 'browser/socket'
 require 'browser/delay'
 require 'opal-jquery'
-require 'react-latest'
-require 'reactrb'
+require 'react/react-source'
+require 'react/top_level_render'
+require 'hyper-react'
+require 'reactrb/auto-import'
 
 # patch current Element#render method so it does not remount on every render
 # waiting for reactrb fix #170
-Element.instance_eval do
-  `window.React.hyper_act_components = {}`
-  define_method :react_component do
-    component = `window.React.hyper_act_components[self]`
-    if `typeof component === "undefined"`
-      component = Class.new(React::Component::Base)
-      component.class_eval do
-        def needs_update?(*_args)
-          true
-        end
-      end
-      `window.React.hyper_act_components[self] = #{component}`
-    end
-    component
-  end
-  define_method :render do |container = nil, params = {}, &block|
-    react_component.class_eval { render(container, params, &block) }
-    React.render(React.create_element(react_component), self)
-  end
-end
+# Element.instance_eval do
+#   `window.React.hyper_act_components = {}`
+#   define_method :react_component do
+#     component = `window.React.hyper_act_components[self]`
+#     if `typeof component === "undefined"`
+#       component = Class.new(React::Component::Base)
+#       component.class_eval do
+#         def needs_update?(*_args)
+#           true
+#         end
+#       end
+#       `window.React.hyper_act_components[self] = #{component}`
+#     end
+#     component
+#   end
+#   define_method :render do |container = nil, params = {}, &block|
+#     react_component.class_eval { render(container, params, &block) }
+#     React.render(React.create_element(react_component), self)
+#   end
+# end
 
 Document.ready? do
   # rubocop:disable Lint/RescueException
@@ -62,8 +63,8 @@ Document.ready? do
       message = "Error raised during execution: #{e.message}"
       `console.error(message)`
     end if compiled_code
-    Element['[data-reactrb-mount]'].each do |mount_point|
-      component_name = mount_point.attr('data-reactrb-mount')
+    Element['[data-hyperloop-mount]'].each do |mount_point|
+      component_name = mount_point.attr('data-hyperloop-mount')
       component = nil
       begin
         component = Object.const_get(component_name)
@@ -73,7 +74,7 @@ Document.ready? do
         next
       end
       params = Hash[*Hash.new(mount_point.data).collect do |name, value|
-        [name.underscore, value] unless name == 'reactrbMount'
+        [name.underscore, value] unless name == 'hyperloopMount'
       end.compact.flatten(1)]
       React.render(React.create_element(component, params), mount_point)
     end if continue_to_mounting

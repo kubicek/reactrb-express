@@ -1,32 +1,31 @@
-#  ![](https://github.com/Serzhenka/hyper-loop-logos/blob/master/hyper-express_150.png)Hyper-express
+#  ![](https://github.com/Serzhenka/hyper-loop-logos/blob/master/hyper-express_150.png)Hyperloop Express
 
-React.rb for static sites, with no build process needed
+Hyperloop for static sites, with no build process needed.
 
-## How To
+## How to use
 
-1. Include reactrb-express.js in with your js files, or link to it from here: https://rawgit.com/reactrb/reactrb-express/master/reactrb-express.js
+1. Include hyperloop-express.js in with your js files, or link to it from here: https://rawgit.com/hyperloop.io/hyperloop-express/master/hyperloop-express.js
 2. Link to a version of jQuery
 3. Specify your ruby code inside of `<script type="text/ruby">...</script>` tags    
    or link to your ruby code using the src attribute `<script type="text/ruby" src=.../>`
 
 ## What is included
 
-+ Opal (Ruby to Javascript Transpiler) - currently version 0.9
-+ Reactrb (Ruby React.js wrapper)
-+ React - currently version 15
++ Opal (Ruby to Javascript Transpiler)
++ HyperReact (Ruby React.js wrapper)
++ HyperReact Auto Import (automatically imports JS components to Ruby)
++ React - latest version
 + Opal-Jquery (Ruby Jquery wrapper, including HTTP, timers, and of course DOM queries)
 
 ## How it works
 
-Your ruby code will be compiled by the browser into javascript, and executed.  Any compilation or runtime errors
-will be briefly reported to the console.
+Your ruby code will be compiled by the browser into javascript, and executed.  Any compilation or runtime errors will be briefly reported to the console.
 
-Ruby classes can subclass React::Component::Base to become React components, and then use the Reactrb
-DSL to dynamically generate reactive DOM nodes.
+Ruby classes can subclass `React::Component::Base` to become React components, and then use the Hyperloop DSL to dynamically generate reactive DOM nodes.
 
 ## Example
 
-See this example in action here: http://reactrb.github.io/reactrb-express/
+See this example in action here: http://hyperloop.id.github.io/hyperloop-express/
 
 index.html:
 ``` html
@@ -36,9 +35,9 @@ index.html:
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Reactrb-Express Demo</title>
+    <title>Hyperloop-Express Demo</title>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://rawgit.com/reactrb/reactrb-express/master/reactrb-express.js"></script>
+    <script src="https://rawgit.com/hyperloop.id/hyperloop-express/master/hyperloop-express.js"></script>
 
     <!-- ruby scripts can be fetched from the server or other remote source -->
     <script type="text/ruby" src="clock.rb"></script>
@@ -84,11 +83,11 @@ end
 
 # Want a larger example?  
 
-The [Reactrb ChatRoom application and tutorial](http://reactrb.github.io/docs/tutorial.html) uses Reactrb-Express.
+The Hyperloop website and [ChatRoom application and tutorial](http://ruby-hyperloop.io/tutorials/chat_app/) uses Hyperloop-Express.
 
 # Trying it out using github
 
-Github makes a great sandbox to try out small Reactrb online with nothing but your browser.
+Github makes a great sandbox to try out small Hyperloop online with nothing but your browser.
 
 Have a look at the instructions here: https://pages.github.com/
 
@@ -97,13 +96,13 @@ you can just create and edit files right on the github site.
 
 # Mounting Components
 
-In addition to the standard ways to mount top level components reactrb-express will directly mount components onto DOM elements that have the `data-reactrb-mount` attribute.  The attribute value should be the fully qualified name of the component.  For example "Clock".  Any additional data attributes will be passed as params to the component.  The attribute names will be snake cased (i.e. `data-foo-bar` becomes the `foo_bar` key)
+In addition to the standard ways to mount top level components hyperloop-express will directly mount components onto DOM elements that have the `data-hyperloop-mount` attribute.  The attribute value should be the fully qualified name of the component.  For example "Clock".  Any additional data attributes will be passed as params to the component.  The attribute names will be snake cased (i.e. `data-foo-bar` becomes the `foo_bar` key)
 
 # Building and Contributing
 
 To build, clone the repo, run `bundle install` and then `bundle exec rake`
 
-This will combine all the pieces and build the `reactrb-express.js` file.
+This will combine all the pieces and build the `hyperloop-express.js` file.
 
 To be sure we have no ruby dependencies we use this server for smoke testing:
 
