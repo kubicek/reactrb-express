@@ -1,5 +1,6 @@
 require 'opal'
 require 'opal/compiler'
+require 'browser'
 require 'browser/interval'
 require 'browser/socket'
 require 'browser/delay'
