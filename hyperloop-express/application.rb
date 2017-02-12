@@ -1,11 +1,13 @@
 require 'opal'
+require 'opal-jquery'
 require 'opal/compiler'
 require 'browser'
-require 'opal-jquery'
-require 'react/react-source'
-require 'react/top_level_render'
+
 require 'hyper-react'
+
+require 'react/top_level_render'
 require 'reactrb/auto-import'
+
 
 # patch current Element#render method so it does not remount on every render
 # waiting for reactrb fix #170
